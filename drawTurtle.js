@@ -1,37 +1,10 @@
 
-        /*
 
-            key down --> save in array
-            key up --> remove from array
-            draw function runs through keys down and calculates
-            overall dy/dx
 
-            every x draws, save the position of the turtle, and 
-            draw its path line from these points
-
-            turtle object
-            canvas object
-
-            externalsise code 
-
-            forward and back move the turtle
-            left and right rotate the turtle and move it up or down
-
-        */
-
-        var dy = 0;
-        var dx = 0;
-        var dr = 0;
-        
         var dxincrement = 5;
         var dyincrement = 2;
-       
-        var rot_increment = 2;
-        var gradient = 1;
+        var rot_increment = 5;
 
-
-        var tomousey = 0;
-        var tomousex = 0;
 
         var turtle = {
             init_x: 100,
@@ -52,23 +25,23 @@
         };
 
         
-
+        //delegate events to JS functions
         document.onkeydown = checkKey;
         document.onkeyup = removeKey;
  
 
-
-        function updateTurtleCentre(){
-            //new centre is the current xypos
+        //function to keep track of the centre of the turtle
+        function updateTurtleCentre()
+        {
             turtle['ctr_x'] = turtle['init_x'] + dx + (turtle['bound_width'] / 2);
             turtle['ctr_y'] = turtle['init_y'] + dy + (turtle['bound_height'] / 2);;
         }
 
-
+        //draw function
         function draw()
         {
-            console.log(keys);
-            animateTurtle();
+            //update the postion of the turtle
+            updateTurtle();
             jc.start('canvas_1');
             jc.rect(turtle['x'],turtle['y'],turtle['bound_width'],turtle['bound_height'],1).rotate(dr,'center');
             jc.rect(150,40,50,60,1).rotate(30,'center');
@@ -114,15 +87,13 @@
                 draw();
         }
 
-  
-
-        function animateTurtle(){
+        function updateTurtle(){
         
                 if(keys['right'] == true) {
-                    dr+=5
+                    dr+=rot_increment;
                 };
                 if(keys['left'] == true) {
-                    dr-=5;
+                    dr-=rot_increment;
                 };
                 if(keys['up'] == true) {
                    
