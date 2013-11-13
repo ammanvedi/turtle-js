@@ -9,7 +9,7 @@
         var visited = [];
 
         var turt = new Image();
-            turt.src = 'turtle.png';
+            turt.src = 'ttl.png';
 
         var turtle = {
             init_x:        100,
@@ -52,6 +52,7 @@
             turtle['x'] = 100;
             turtle['y'] = 100;
             visited = [];
+            dr = 0;
             draw();
         }        
 
@@ -64,10 +65,10 @@
             //update the postion of the turtle
             updateTurtle();
             jc.start('canvas_1');
+            jc.rect(0,0,500,500,'rgba(245, 188, 0, 1)',true);
             jc.line(visited);
-            
             jc.image(turt,turtle['x'],turtle['y'],turtle['bound_width'],turtle['bound_height']).rotate(dr,'center');
-            jc.rect(turtle['x'],turtle['y'],turtle['bound_width'],turtle['bound_height'],false).rotate(dr,'center');
+            //jc.rect(turtle['x'],turtle['y'],turtle['bound_width'],turtle['bound_height'],false).rotate(dr,'center');
             jc.start('canvas_1');
         };
 
