@@ -25,6 +25,8 @@
                 y:             100
         };
 
+        var eggs = [];
+
         //offsets to calculate the centre of the turtle
         var off_x = (turtle['bound_width'] / 2);
         var off_y = (turtle['bound_height'] / 2);
@@ -37,7 +39,8 @@
                 up:     false,
                 down:   false, 
                 left:   false, 
-                right:  false
+                right:  false,
+                space:  false
         };
 
         //delegate events to JS functions
@@ -60,6 +63,7 @@
                 turtle['y'] = 100;
                 visited = [];
                 dr = 0;
+                eggs = [];
                 draw();
         }        
 
@@ -72,8 +76,19 @@
                 //update the postion of the turtle
                 updateTurtle();
                 jc.start('canvas_1');
+                //draw background
                 jc.rect(0,0,500,500,'rgba(245, 188, 0, 1)',true);
+                //draw turtle path
                 jc.line(visited);
+
+                for(i = 0; i < eggs.length; i++){
+                    jc.start('canvas_1');
+                    jc.circle(eggs[i][0],eggs[i][1],5,'rgba(255, 255, 255, 1)',true);
+                    jc.start('canvas_1');
+                    console.log('herherh');
+                }
+
+                
                 jc.image(turt,turtle['x'],turtle['y'],turtle['bound_width'],turtle['bound_height']).rotate(dr,'center');
                 jc.start('canvas_1');
         };
@@ -89,6 +104,11 @@
                 if(e.keyCode == 38) {   keys['up'] = true;      };
                 if(e.keyCode == 40) {   keys['down'] = true;    };
 
+                if(e.keyCode == 32)
+                    {   
+                        keys['space'] = true;
+                    };
+
                 draw();
         };
 
@@ -102,6 +122,13 @@
                 if(e.keyCode == 37) {   keys['left'] = false;   };
                 if(e.keyCode == 38) {   keys['up'] = false;     };
                 if(e.keyCode == 40) {   keys['down'] = false;   };
+
+                if(e.keyCode == 32)
+                    {
+                        keys['space'] = false; 
+                        updateTurtleCentre();
+                        eggs.push([turtle['ctr_x'],turtle['ctr_y']]); 
+                    };
 
                 draw();
         };
