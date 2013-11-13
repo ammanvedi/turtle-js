@@ -5,6 +5,9 @@
         var rot_increment =   5;
         var dr =              0;
 
+        var visited_x = [];
+        var visited = [];
+
         var turt = new Image();
             turt.src = 'turtle.png';
 
@@ -18,6 +21,12 @@
             x:             100,
             y:             100
         };
+
+        var off_x = (turtle['bound_width'] / 2);
+        var off_y = (turtle['bound_height'] / 2);
+
+        visited.push([turtle['ctr_x'], turtle['ctr_y']]);
+        visited_x.push(turtle['init_x']);
 
         var keys = {
             up:     false,
@@ -42,19 +51,23 @@
             turtle['ctr_y'] = 130;
             turtle['x'] = 100;
             turtle['y'] = 100;
+            visited = [];
             draw();
         }        
 
         //draw function
         function draw()
         {
+            // console.log(visited_x + ' and y ' + visited_y);
             //clear the canvas
             jc.clear('canvas_1');
             //update the postion of the turtle
             updateTurtle();
             jc.start('canvas_1');
+            jc.line(visited);
+            
             jc.image(turt,turtle['x'],turtle['y'],turtle['bound_width'],turtle['bound_height']).rotate(dr,'center');
-            jc.rect(150,40,50,60,1).rotate(30,'center');
+            jc.rect(turtle['x'],turtle['y'],turtle['bound_width'],turtle['bound_height'],false).rotate(dr,'center');
             jc.start('canvas_1');
         };
 
@@ -97,11 +110,20 @@
                 if(keys['up'] == true) {
                     turtle['x'] += Math.sin(dr * Math.PI / 180)*5;
                     turtle['y'] -= Math.cos(dr * Math.PI / 180)*5;
+                    updateTurtleCentre();
+
+                    visited.push([turtle['ctr_x'], turtle['ctr_y']]);
+                    
+
                 };
 
                 //move backwards
                 if(keys['down'] == true) {
                     turtle['x'] -= Math.sin(dr * Math.PI / 180)*5;
                     turtle['y'] += Math.cos(dr * Math.PI / 180)*5;
+                    updateTurtleCentre();
+
+                    visited.push([turtle['ctr_x'], turtle['ctr_y']]);
+                    
                 };
         };
