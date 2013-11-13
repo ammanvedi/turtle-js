@@ -5,6 +5,9 @@
         var rot_increment =   5;
         var dr =              0;
 
+        var turt = new Image();
+            turt.src = 'turtle.png';
+
         var turtle = {
             init_x:        100,
             init_y:        100,
@@ -30,9 +33,17 @@
         //function to keep track of the centre of the turtle
         function updateTurtleCentre()
         {
-            turtle['ctr_x'] = turtle['init_x'] + dx + (turtle['bound_width'] / 2);
-            turtle['ctr_y'] = turtle['init_y'] + dy + (turtle['bound_height'] / 2);;
+            turtle['ctr_x'] = turtle['x'] + (turtle['bound_width'] / 2);
+            turtle['ctr_y'] = turtle['y'] + (turtle['bound_height'] / 2);
         };
+
+        function reset(){
+            turtle['ctr_x'] = 125;
+            turtle['ctr_y'] = 130;
+            turtle['x'] = 100;
+            turtle['y'] = 100;
+            draw();
+        }        
 
         //draw function
         function draw()
@@ -42,7 +53,7 @@
             //update the postion of the turtle
             updateTurtle();
             jc.start('canvas_1');
-            jc.rect(turtle['x'],turtle['y'],turtle['bound_width'],turtle['bound_height'],1).rotate(dr,'center');
+            jc.image(turt,turtle['x'],turtle['y'],turtle['bound_width'],turtle['bound_height']).rotate(dr,'center');
             jc.rect(150,40,50,60,1).rotate(30,'center');
             jc.start('canvas_1');
         };
